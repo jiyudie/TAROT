@@ -692,7 +692,7 @@ document.getElementById('btn-restart').addEventListener('click', ()=>{
 
 /* =========================================================
    【可选】接入大模型 API
-   ---------------------------------------------------------
+   ---------------------------------------------------------*/
    如果你想用真正的 AI 来润色解读，把下面这段
    替换掉 buildReading 的调用即可。
 
@@ -741,7 +741,6 @@ ${cardsText}
      const data = await res.json();
      return JSON.parse(data.choices[0].message.content);
    }
-   ========================================================= */
 </script>
 </body>
 </html>
