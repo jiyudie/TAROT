@@ -288,143 +288,41 @@
 <script>
 /* =========================================================
    塔罗数据：22 张大阿卡纳
-   解读方向刻意避开吉凶，聚焦「觉察」与「行动」
    ========================================================= */
 const TAROT = [
-  { name:'愚者', symbol:'🌱',
-    up:{k:'新的开始 · 信任直觉', t:'你正站在一个还没被定义的起点上。此刻不需要想清楚全部路线，允许自己先迈出一步，哪怕很小。'},
-    rev:{k:'犹豫 · 害怕出错', t:'你心里其实已经有了方向，只是害怕走错。把「万一失败」换成「我想试试」，会轻松很多。'} },
-
-  { name:'魔术师', symbol:'✨',
-    up:{k:'资源已在手 · 主动创造', t:'你拥有的条件比你以为的多。现在缺的不是能力，而是承认自己可以。'},
-    rev:{k:'自我怀疑 · 力量分散', t:'你可能把注意力放在了「我还没有什么」上。试着列出你已经拥有的三样东西。'} },
-
-  { name:'女祭司', symbol:'🌙',
-    up:{k:'内在声音 · 静下来听', t:'答案不在外面，在你反复忽略的那个念头上。给自己一点安静的时间。'},
-    rev:{k:'过度分析 · 与直觉失联', t:'你想得太多，感受得太少。身体往往比脑子更早知道答案。'} },
-
-  { name:'皇后', symbol:'🌷',
-    up:{k:'滋养 · 允许被爱', t:'你值得被温柔对待，包括被你自己。今天为自己做一件纯粹的、无用的、让你舒服的事。'},
-    rev:{k:'忽略自己 · 过度付出', t:'你把能量都给了别人，自己空了。照顾别人之前，先给自己倒一杯水。'} },
-
-  { name:'皇帝', symbol:'🏛',
-    up:{k:'边界 · 掌控感', t:'你需要为自己设立一条清晰的线，告诉别人什么可以、什么不可以。'},
-    rev:{k:'失控 · 过度紧绷', t:'你想控制所有变量，但有些事就是不由人。松一点，天不会塌。'} },
-
-  { name:'教皇', symbol:'📜',
-    up:{k:'传承 · 寻求指引', t:'你不必独自摸索。找一个你信任的人聊聊，或者回到让你安心的习惯里。'},
-    rev:{k:'挣脱规训 · 走自己的路', t:'别人说的「应该」未必适合你。你有权重新定义自己的规则。'} },
-
-  { name:'恋人', symbol:'💞',
-    up:{k:'连接 · 真实的选择', t:'一段关系或一个决定，需要你诚实地面对自己真正想要什么。'},
-    rev:{k:'价值冲突 · 难以取舍', t:'你纠结的不是选 A 还是 B，而是选完之后要承担的代价。先承认这一点。'} },
-
-  { name:'战车', symbol:'🐎',
-    up:{k:'行动 · 带着矛盾前进', t:'你不需要等所有情绪都理顺才出发。带着不确定往前走，方向会在路上清晰。'},
-    rev:{k:'内耗 · 方向不明', t:'你在原地打转，因为想同时满足所有人的期待。先问自己：我想要什么。'} },
-
-  { name:'力量', symbol:'🦁',
-    up:{k:'温柔的坚定', t:'真正的强大不是压制情绪，而是能和它共处。你比自己想象的更有韧性。'},
-    rev:{k:'自我否定 · 疲惫', t:'你已经撑了很久了。承认累不是软弱，是诚实。'} },
-
-  { name:'隐士', symbol:'🕯',
-    up:{k:'独处 · 向内看', t:'你需要一点不被打扰的时间。答案会在安静里浮出来。'},
-    rev:{k:'孤立 · 过度封闭', t:'独处是充电，躲藏是消耗。分清这两者，必要时向人伸出手。'} },
-
-  { name:'命运之轮', symbol:'🎡',
-    up:{k:'转折 · 周期更替', t:'事情正在变化，不全是你能控制的。顺势而为，比硬扛更省力。'},
-    rev:{k:'停滞感 · 重复的模式', t:'如果同一件事反复发生，也许它在提醒你一个还没面对的课题。'} },
-
-  { name:'正义', symbol:'⚖️',
-    up:{k:'诚实 · 承担与平衡', t:'你需要对自己诚实，哪怕真相不那么好看。公平从对自己公平开始。'},
-    rev:{k:'逃避 · 失衡', t:'你可能在回避一个该做的决定。拖延本身也是一种选择。'} },
-
-  { name:'倒吊人', symbol:'🙃',
-    up:{k:'暂停 · 换个角度', t:'现在的停滞不是浪费，是让你重新看清。允许自己暂时什么都不做。'},
-    rev:{k:'无谓的牺牲 · 卡住', t:'你在等一个不会来的答案。有时候放下比坚持更需要勇气。'} },
-
-  { name:'死神', symbol:'🦋',
-    up:{k:'结束 · 蜕变的开始', t:'有些东西该结束了。这不是失去，是为新的东西腾出位置。'},
-    rev:{k:'抗拒改变 · 拖延告别', t:'你舍不得的，可能早已不属于你。放手不是背叛过去。'} },
-
-  { name:'节制', symbol:'🍶',
-    up:{k:'平衡 · 慢慢来', t:'你不需要走极端。找到那个让你舒服的中间点，节奏比速度重要。'},
-    rev:{k:'失衡 · 过度消耗', t:'你在某件事上投入太多，另一部分生活正在被挤压。重新分配一下。'} },
-
-  { name:'恶魔', symbol:'⛓',
-    up:{k:'看见束缚 · 承认欲望', t:'困住你的往往不是别人，是你不敢承认的需求。看见它，它就没那么可怕。'},
-    rev:{k:'松绑 · 正在挣脱', t:'你已经开始意识到某些模式在消耗你。这是解脱的第一步。'} },
-
-  { name:'高塔', symbol:'🗼',
-    up:{k:'旧结构松动 · 真相浮现', t:'这不是惩罚，是那些本来就不稳的东西终于塌了。塌掉之后，你才有空间重建。'},
-    rev:{k:'延迟的崩塌 · 勉强维持', t:'你在硬撑一个已经不合适的状态。问自己：我到底在怕失去什么。'} },
-
-  { name:'星星', symbol:'⭐',
-    up:{k:'希望 · 疗愈', t:'你在慢慢好起来，哪怕速度很慢。允许自己相信，事情会变好。'},
-    rev:{k:'失去信心 · 疲惫', t:'你可能看不到光了，但光还在。先做一件小事，让自己好过一点点。'} },
-
-  { name:'月亮', symbol:'🌊',
-    up:{k:'模糊 · 潜意识浮现', t:'你现在看不清全貌，这很正常。别急着下结论，让情绪先流过去。'},
-    rev:{k:'迷雾散去 · 看清', t:'你开始分辨哪些是事实，哪些是恐惧编的故事。这是好事。'} },
-
-  { name:'太阳', symbol:'☀️',
-    up:{k:'明亮 · 生命力', t:'你值得被看见，也值得开心。今天允许自己发光，不用收着。'},
-    rev:{k:'暂时低落 · 强撑笑容', t:'你可能在别人面前装作没事。找一个安全的人，说说真实感受。'} },
-
-  { name:'审判', symbol:'🔔',
-    up:{k:'觉醒 · 重新选择', t:'你正在经历一次内在的清算，过去的经验在整合。你可以重新决定成为谁。'},
-    rev:{k:'自我批判 · 卡在过去', t:'你还在为某件事责怪自己。原谅自己，是往前走的开始。'} },
-
-  { name:'世界', symbol:'🌍',
-    up:{k:'完成 · 整合', t:'一个阶段正在收尾。允许自己承认：我做到了。然后带着这份完整走向下一段。'},
-    rev:{k:'未完成感 · 差一步', t:'你觉得还差点什么，但也许「差的那点」只是你不够允许自己庆祝。'} },
+  { name:'愚者', symbol:'🌱', up:{k:'新的开始 · 信任直觉', t:'你正站在一个还没被定义的起点上。此刻不需要想清楚全部路线，允许自己先迈出一步，哪怕很小。'}, rev:{k:'犹豫 · 害怕出错', t:'你心里其实已经有了方向，只是害怕走错。把「万一失败」换成「我想试试」，会轻松很多。'} },
+  { name:'魔术师', symbol:'✨', up:{k:'资源已在手 · 主动创造', t:'你拥有的条件比你以为的多。现在缺的不是能力，而是承认自己可以。'}, rev:{k:'自我怀疑 · 力量分散', t:'你可能把注意力放在了「我还没有什么」上。试着列出你已经拥有的三样东西。'} },
+  { name:'女祭司', symbol:'🌙', up:{k:'内在声音 · 静下来听', t:'答案不在外面，在你反复忽略的那个念头上。给自己一点安静的时间。'}, rev:{k:'过度分析 · 与直觉失联', t:'你想得太多，感受得太少。身体往往比脑子更早知答案。'} },
+  { name:'皇后', symbol:'🌷', up:{k:'滋养 · 允许被爱', t:'你值得被温柔对待，包括被你自己。今天为自己做一件纯粹的、无用的、让你舒服的事。'}, rev:{k:'忽略自己 · 过度付出', t:'你把能量都给了别人，自己空了。照顾别人之前，先给自己倒一杯水。'} },
+  { name:'皇帝', symbol:'🏛', up:{k:'边界 · 掌控感', t:'你需要为自己设立一条清晰的线，告诉别人什么可以、什么不可以。'}, rev:{k:'失控 · 过度紧绷', t:'你想控制所有变量，但有些事就是不由人。松一点，天不会塌。'} },
+  { name:'教皇', symbol:'📜', up:{k:'传承 · 寻求指引', t:'你不必独自摸索。找一个你信任的人聊聊，或者回到让你安心的习惯里。'}, rev:{k:'挣脱规训 · 走自己的路', t:'别人说的「应该」未必适合你。你有权重新定义自己的规则。'} },
+  { name:'恋人', symbol:'💞', up:{k:'连接 · 真实的选择', t:'一段关系或一个决定，需要你诚实地面对自己真正想要什么。'}, rev:{k:'价值冲突 · 难以取舍', t:'你纠结的不是选 A 还是 B，而是选完之后要承担的代价。先承认这一点。'} },
+  { name:'战车', symbol:'🐎', up:{k:'行动 · 带着矛盾前进', t:'你不需要等所有情绪都理顺才出发。带着不确定往前走，方向会在路上清晰。'}, rev:{k:'内耗 · 方向不明', t:'你在原地打转，因为想同时满足所有人的期待。先问自己：我想要什么。'} },
+  { name:'力量', symbol:'🦁', up:{k:'温柔的坚定', t:'真正的强大不是压制情绪，而是能和它共处。你比自己想象的更有韧性。'}, rev:{k:'自我否定 · 疲惫', t:'你已经撑了很久了。承认累不是软弱，是诚实。'} },
+  { name:'隐士', symbol:'🕯', up:{k:'独处 · 向内看', t:'你需要一点不被打扰的时间。答案会在安静里浮出来。'}, rev:{k:'孤立 · 过度封闭', t:'独处是充电，躲藏是消耗。分清这两者，必要时向人伸出手。'} },
+  { name:'命运之轮', symbol:'🎡', up:{k:'转折 · 周期更替', t:'事情正在变化，不全是你能控制的。顺势而为，比硬扛更省力。'}, rev:{k:'停滞感 · 重复的模式', t:'如果同一件事反复发生，也许它在提醒你一个还没面对的课题。'} },
+  { name:'正义', symbol:'⚖️', up:{k:'诚实 · 承担与平衡', t:'你需要对自己诚实，哪怕真相不那么好看。公平从对自己公平开始。'}, rev:{k:'逃避 · 失衡', t:'你可能在回避一个该做的决定。拖延本身也是一种选择。'} },
+  { name:'倒吊人', symbol:'🙃', up:{k:'暂停 · 换个角度', t:'现在的停滞不是浪费，是让你重新看清。允许自己暂时什么都不做。'}, rev:{k:'无谓的牺牲 · 卡住', t:'你在等一个不会来的答案。有时候放下比坚持更需要勇气。'} },
+  { name:'死神', symbol:'🦋', up:{k:'结束 · 蜕变的开始', t:'有些东西该结束了。这不是失去，是为新的东西腾出位置。'}, rev:{k:'抗拒改变 · 拖延告别', t:'你舍不得的，可能早已不属于你。放手不是背叛过去。'} },
+  { name:'节制', symbol:'🍶', up:{k:'平衡 · 慢慢来', t:'你不需要走极端。找到那个让你舒服的中间点，节奏比速度重要。'}, rev:{k:'失衡 · 过度消耗', t:'你在某件事上投入太多，另一部分生活正在被挤压。重新分配一下。'} },
+  { name:'恶魔', symbol:'⛓', up:{k:'看见束缚 · 承认欲望', t:'困住你的往往不是别人，是你不敢承认的需求。看见它，它就没那么可怕。'}, rev:{k:'松绑 · 正在挣脱', t:'你已经开始意识到某些模式在消耗你。这是解脱的第一步。'} },
+  { name:'高塔', symbol:'🗼', up:{k:'旧结构松动 · 真相浮现', t:'这不是惩罚，是那些本来就不稳的东西终于塌了。塌掉之后，你才有空间重建。'}, rev:{k:'延迟的崩塌 · 勉强维持', t:'你在硬撑一个已经不合适的状态。问自己：我到底在怕失去什么。'} },
+  { name:'星星', symbol:'⭐', up:{k:'希望 · 疗愈', t:'你在慢慢好起来，哪怕速度很慢。允许自己相信，事情会变好。'}, rev:{k:'失去信心 · 疲惫', t:'你可能看不到光了，但光还在。先做一件小事，让自己好过一点点。'} },
+  { name:'月亮', symbol:'🌊', up:{k:'模糊 · 潜意识浮现', t:'你现在看不清全貌，这很正常。别急着下结论，让情绪先流过去。'}, rev:{k:'迷雾散去 · 看清', t:'你开始分辨哪些是事实，哪些是恐惧编的故事。这是好事。'} },
+  { name:'太阳', symbol:'☀️', up:{k:'明亮 · 生命力', t:'你值得被看见，也值得开心。今天允许自己发光，不用收着。'}, rev:{k:'暂时低落 · 强撑笑容', t:'你可能在别人面前装作没事。找一个安全的人，说说真实感受。'} },
+  { name:'审判', symbol:'🔔', up:{k:'觉醒 · 重新选择', t:'你正在经历一次内在的清算，过去的经验在整合。你可以重新决定成为谁。'}, rev:{k:'自我批判 · 卡在过去', t:'你还在为某件事责怪自己。原谅自己，是往前走的开始。'} },
+  { name:'世界', symbol:'🌍', up:{k:'完成 · 整合', t:'一个阶段正在收尾。允许自己承认：我做到了。然后带着这份完整走向下一段。'}, rev:{k:'未完成感 · 差一步', t:'你觉得还差点什么，但也许「差的那点」只是你不够允许自己庆祝。'} },
 ];
 
 /* =========================================================
-   状态
+   状态与工具函数
    ========================================================= */
 const POSITIONS = ['此刻的你', '被忽略的感受', '给自己的礼物'];
-const state = {
-  question: '',
-  deck: [],        // 12 张候选牌
-  picked: [],      // 已选 3 张
-};
+const state = { question: '', deck: [], picked: [] };
 
-/* ---------- 工具 ---------- */
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
-}
-
-// 用字符串生成稳定种子（保证同一天同样的问题，幸运元素一致）
-function hashSeed(str){
-  let h = 2166136261;
-  for(let i=0;i<str.length;i++){
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return Math.abs(h);
-}
-
-function seededPick(arr, seed, offset){
-  return arr[(seed + offset) % arr.length];
-}
-
-function todayStr(){
-  const d = new Date();
-  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
-}
-
-/* ---------- 屏幕切换 ---------- */
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+function shuffle(arr){ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
 
 /* =========================================================
    流程一：开始抽牌
@@ -432,39 +330,24 @@ function show(id){
 document.getElementById('btn-start').addEventListener('click', ()=>{
   const q = document.getElementById('question').value.trim();
   state.question = q || '（没有写具体的事，只是想看看此刻的自己）';
-
-  // 洗牌，取 12 张作为候选
   state.deck = shuffle(TAROT).slice(0, 12);
   state.picked = [];
-
-  // 回显问题
-  document.getElementById('echo').innerHTML =
-    `<b>你的困扰：</b>${escapeHtml(state.question)}`;
+  document.getElementById('echo').innerHTML = `<b>你的困扰：</b>${escapeHtml(state.question)}`;
   document.getElementById('need').textContent = '3';
   document.getElementById('btn-reveal').style.display = 'none';
-
   renderGrid();
   show('screen-draw');
 });
 
-function escapeHtml(s){
-  return s.replace(/[&<>"']/g, c=>({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
-
 /* =========================================================
-   流程二：渲染牌阵
+   流程二：渲染牌阵与选牌
    ========================================================= */
 function renderGrid(){
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
-
   state.deck.forEach((card, idx)=>{
     const slot = document.createElement('div');
     slot.className = 'slot';
-    slot.dataset.index = idx;
-
     slot.innerHTML = `
       <div class="card-inner">
         <div class="face back"></div>
@@ -476,7 +359,6 @@ function renderGrid(){
         </div>
       </div>
     `;
-
     slot.querySelector('.back').addEventListener('click', ()=> pickCard(slot, idx));
     grid.appendChild(slot);
   });
@@ -485,22 +367,15 @@ function renderGrid(){
 function pickCard(slot, idx){
   if(state.picked.length >= 3) return;
   if(slot.classList.contains('flipped')) return;
-
   const card = state.deck[idx];
   const isReversed = Math.random() < 0.5;
   const posIndex = state.picked.length;
-
   state.picked.push({ card, isReversed, posIndex });
-
-  // 翻牌 + 标记牌位
   slot.classList.add('flipped');
   const front = slot.querySelector('.front');
   front.querySelector('.pos').textContent = POSITIONS[posIndex];
   if(isReversed) front.querySelector('.rev').textContent = '逆位';
-
-  // 牌位提示色
   front.querySelector('.pos').style.color = ['#8b7ab8','#a98bc4','#d98ba8'][posIndex];
-
   updateNeed();
 }
 
@@ -509,55 +384,39 @@ function updateNeed(){
   document.getElementById('need').textContent = left;
   if(left === 0){
     document.getElementById('btn-reveal').style.display = 'block';
-    // 未选中的牌变淡
-    document.querySelectorAll('.slot').forEach(s=>{
-      if(!s.classList.contains('flipped')) s.classList.add('chosen');
-    });
+    document.querySelectorAll('.slot').forEach(s=>{ if(!s.classList.contains('flipped')) s.classList.add('chosen'); });
   }
 }
 
 /* =========================================================
-   流程三：生成解读
+   流程三：调用 DeepSeek 生成真 AI 解读
    ========================================================= */
 document.getElementById('btn-reveal').addEventListener('click', async ()=>{
   const btn = document.getElementById('btn-reveal');
   btn.textContent = '正在连接牌面能量...';
   btn.disabled = true;
-  btn.style.opacity = '0.7';
 
   try {
-    // 调用真实的 AI 接口
     const reading = await buildReadingWithAI(state.question, state.picked);
     renderResult(reading);
     show('screen-result');
   } catch (error) {
     console.error(error);
-    alert('解读失败，请检查网络或 API Key 是否正确。错误信息：' + error.message);
+    alert('解读失败，请检查 API Key 余额与网络。错误信息：' + error.message);
   } finally {
     btn.textContent = '查 看 解 读';
     btn.disabled = false;
-    btn.style.opacity = '1';
   }
 });
-  
-/* ---------- 解读生成核心 ----------
-   说明：这是本地模板版，不依赖 API。
-   如果你要接大模型，把 buildReading 的返回结果
-   作为 prompt 发给模型润色即可（代码底部有示例）。
------------------------------------- */
-/* =========================================================
-   真正的 AI 解读核心（DeepSeek API）
-   ========================================================= */
-async function buildReadingWithAI(question, picks) {
-  // ⚠️ 在这里填入你的 DeepSeek API Key
-  const API_KEY = 'sk-你的DeepSeekKey填在这里'; 
 
-  // 拼接抽到的牌
+async function buildReadingWithAI(question, picks) {
+  // ⚠️ ⚠️ ⚠️ 在这里填入你的真实 API Key ⚠️ ⚠️ ⚠️
+  const API_KEY = 'sk-c2767b01da564cbda920a5b354fa8c57'; 
+
   const cardsText = picks.map((p, i) =>
     `${POSITIONS[i]}：${p.card.name}${p.isReversed ? '（逆位）' : '（正位）'}`
   ).join('\n');
 
-  // 核心 Prompt —— 直接解决你朋友吐槽的“不契合”、“高高在上”
   const systemPrompt = `
 你是一位温柔、客观、富有洞察力的塔罗解读师。你的用户是年轻女性。
 你的任务是根据用户的具体问题和抽到的牌阵，给出具有实操性的情感/行动指引，而不是泛泛而谈的运气预测。
@@ -608,7 +467,7 @@ async function buildReadingWithAI(question, picks) {
         { role: 'user', content: userPrompt }
       ],
       temperature: 0.8,
-      response_format: { type: 'json_object' } // 强制 JSON 输出
+      response_format: { type: 'json_object' }
     })
   });
 
@@ -619,217 +478,59 @@ async function buildReadingWithAI(question, picks) {
 
   const data = await response.json();
   let rawContent = data.choices[0].message.content;
-  
-  // 清理可能出现的 markdown 代码块标记
   rawContent = rawContent.replace(/```json/g, '').replace(/```/g, '').trim();
-  
   return JSON.parse(rawContent);
 }
-  
-  
-  function buildReading(question, picks){
-  const seed = hashSeed(question + todayStr());
 
-  // 开场共情句
-  const openings = [
-    '你愿意把这件事写下来，本身就已经是一种诚实。',
-    '有些感受说不清楚，不代表它们不重要。',
-    '你不是想太多，你只是很久没有被好好听见了。',
-    '把困扰写出来的那一刻，你已经比昨天更靠近答案。',
-    '不需要马上想通，我们先看看牌面怎么说。',
-  ];
-  const opening = seededPick(openings, seed, 0);
-
-  // 三张牌分别生成一段
-  const parts = picks.map((p, i)=>{
-    const data = p.isReversed ? p.card.rev : p.card.up;
-    return {
-      pos: POSITIONS[i],
-      cardName: p.card.name + (p.isReversed ? '（逆位）' : ''),
-      symbol: p.card.symbol,
-      isReversed: p.isReversed,
-      keyword: data.k,
-      text: data.t,
-    };
-  });
-
-  // 一句话总评
-  const oneliners = [
-    '你不需要立刻变好，你只需要先允许自己停一下。',
-    '答案不在远方，在你一直回避的那个感受里。',
-    '你不是不够坚强，你只是太久没有休息了。',
-    '有些事急不来，慢一点反而更快。',
-    '你比你想象中更有力量，只是还没允许自己用。',
-    '此刻的困惑，是你在认真生活的证据。',
-  ];
-  const oneliner = seededPick(oneliners, seed, 1);
-
-  // 行动建议
-  const actions = [
-    '今天为自己做一件「没有用」的小事：散步十分钟、买一杯喜欢的饮料、或者单纯发一会儿呆。',
-    '找一个不会评判你的人，说一句真话。哪怕只是「我最近有点累」。',
-    '把脑子里盘旋的事写下来，只写三行。写出来，它就没那么大了。',
-    '今晚提前半小时放下手机，让身体先休息，答案会慢慢浮现。',
-    '对一件你一直在忍的事，说一次「不」。哪怕很小的事。',
-    '给自己设一个边界：今天不为任何人的情绪负责。',
-  ];
-  const action = seededPick(actions, seed, 2);
-
-  // 幸运元素（固定种子，同一天同一问题结果一致）
-  const colors = ['藕粉','雾紫','米白','暖橘','雾霾蓝','浅茶'];
-  const numbers = ['3','5','7','9','11','21'];
-  const items = ['一杯热饮','一段独处','一首老歌','一次早睡','一本旧书','一束光'];
-  const lucky = {
-    color: seededPick(colors, seed, 3),
-    number: seededPick(numbers, seed, 4),
-    item: seededPick(items, seed, 5),
-  };
-
-  // 标题
-  const titles = [
-    '牌面看到的，是你没说出口的那部分',
-    '你需要的不是答案，是被理解',
-    '慢一点，你已经做得很好了',
-    '此刻的困惑，也是一种认真',
-  ];
-  const title = seededPick(titles, seed, 6);
-
-  return { opening, parts, oneliner, action, lucky, title, question };
-}
-
-/* ---------- 渲染结果 ---------- */
+/* =========================================================
+   流程四：渲染结果
+   ========================================================= */
 function renderResult(r){
   document.getElementById('result-title').textContent = r.title;
-
-  // 迷你牌组
-  const miniRow = document.getElementById('mini-row');
-  miniRow.innerHTML = r.parts.map(p=>`
+  document.getElementById('mini-row').innerHTML = r.parts.map(p=>`
     <div class="mini">
-      <div class="sym">${p.symbol}</div>
-      <div class="nm">${p.cardName.replace('（逆位）','')}</div>
+      <div class="sym">${p.symbol || '✦'}</div>
+      <div class="nm">${p.cardName || p.pos}</div>
       ${p.isReversed ? '<div class="rev">逆位</div>' : ''}
     </div>
   `).join('');
-
-  // 一句话
   document.getElementById('oneliner').textContent = r.oneliner;
-
-  // 幸运元素
   document.getElementById('lucky').innerHTML = `
     <span>幸运色 · ${r.lucky.color}</span>
     <span>数字 · ${r.lucky.number}</span>
     <span>今日小事 · ${r.lucky.item}</span>
   `;
-
-  // 详细解读
   const sections = document.getElementById('sections');
-  let html = `
-    <div class="section">
-      <h3>先说说你</h3>
-      <p>${r.opening}</p>
-    </div>
-  `;
-
-  r.parts.forEach((p, i)=>{
-    html += `
-      <div class="section">
-        <h3>${p.pos} · ${p.cardName}</h3>
-        <p><strong style="color:#8b7ab8;">${p.keyword}</strong><br>${p.text}</p>
-      </div>
-    `;
+  let html = `<div class="section"><h3>先说说你</h3><p>${r.opening}</p></div>`;
+  r.parts.forEach((p)=>{
+    html += `<div class="section"><h3>${p.pos}</h3><p><strong style="color:#8b7ab8;">${p.keyword}</strong><br>${p.text}</p></div>`;
   });
-
-  html += `
-    <div class="section">
-      <h3>今天可以做的一件小事</h3>
-      <div class="action-box">${r.action}</div>
-    </div>
-  `;
-
+  html += `<div class="section"><h3>今天可以做的一件小事</h3><div class="action-box">${r.action}</div></div>`;
   sections.innerHTML = html;
 }
 
 /* =========================================================
-   复制分享文案
+   复制与重新开始
    ========================================================= */
 document.getElementById('btn-copy').addEventListener('click', async ()=>{
   const title = document.getElementById('result-title').textContent;
   const oneliner = document.getElementById('oneliner').textContent;
   const lucky = document.getElementById('lucky').innerText.replace(/\n/g,' · ');
-
-  const text =
-`${title}
-
-${oneliner}
-
-${lucky}
-
-—— 来自「此刻，牌面想告诉你什么」
-本内容由 AI 生成，仅供娱乐与自我反思`;
-
+  const text = `${title}\n\n${oneliner}\n\n${lucky}\n\n—— 来自「此刻，牌面想告诉你什么」\n本内容由 AI 生成，仅供娱乐与自我反思`;
   try{
     await navigator.clipboard.writeText(text);
     const btn = document.getElementById('btn-copy');
     const old = btn.textContent;
     btn.textContent = '已 复 制 ✓';
     setTimeout(()=> btn.textContent = old, 1800);
-  }catch(e){
-    alert('复制失败，请手动选中文字复制');
-  }
+  }catch(e){ alert('复制失败，请手动选中文字复制'); }
 });
 
-/* =========================================================
-   重新开始
-   ========================================================= */
 document.getElementById('btn-restart').addEventListener('click', ()=>{
   document.getElementById('question').value = '';
   state.picked = [];
   show('screen-intro');
 });
-
-   async function buildReadingWithAI(question, picks){
-     const cardsText = picks.map((p,i)=>
-       `${POSITIONS[i]}：${p.card.name}${p.isReversed?'（逆位）':'（正位）'}`
-     ).join('\n');
-
-     const prompt = `
-你是情绪疗愈型塔罗解读师。用户的问题：${question}
-抽到的牌：
-${cardsText}
-
-请输出 JSON：
-{
-  "title": "一句温柔的标题",
-  "opening": "先共情用户，2句以内",
-  "parts": [{"pos":"牌位","keyword":"关键词","text":"解读，聚焦觉察与行动"}],
-  "oneliner": "一句话总评",
-  "action": "今天可以做的一件小事",
-  "lucky": {"color":"","number":"","item":""}
-}
-
-要求：
-- 温暖、具体、不恐吓
-- 禁止预测疾病、死亡、投资、法律结果
-- 禁止绝对化断言
-- 逆位不等于坏，而是能量受阻或需要调整
-`;
-
-     const res = await fetch('你的API地址', {
-       method:'POST',
-       headers:{
-         'Content-Type':'application/json',
-         'Authorization':'Bearer 你的KEY'
-       },
-       body: JSON.stringify({
-         model:'gpt-4o-mini',
-         messages:[{role:'user',content:prompt}],
-         temperature:0.8,
-         response_format:{type:'json_object'}
-       })
-     });
-     const data = await res.json();
-     return JSON.parse(data.choices[0].message.content);
-   }
 </script>
 </body>
 </html>
