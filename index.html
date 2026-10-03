@@ -519,18 +519,115 @@ function updateNeed(){
 /* =========================================================
    流程三：生成解读
    ========================================================= */
-document.getElementById('btn-reveal').addEventListener('click', ()=>{
-  const reading = buildReading(state.question, state.picked);
-  renderResult(reading);
-  show('screen-result');
-});
+document.getElementById('btn-reveal').addEventListener('click', async ()=>{
+  const btn = document.getElementById('btn-reveal');
+  btn.textContent = '正在连接牌面能量...';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
 
+  try {
+    // 调用真实的 AI 接口
+    const reading = await buildReadingWithAI(state.question, state.picked);
+    renderResult(reading);
+    show('screen-result');
+  } catch (error) {
+    console.error(error);
+    alert('解读失败，请检查网络或 API Key 是否正确。错误信息：' + error.message);
+  } finally {
+    btn.textContent = '查 看 解 读';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }
+});
+  
 /* ---------- 解读生成核心 ----------
    说明：这是本地模板版，不依赖 API。
    如果你要接大模型，把 buildReading 的返回结果
    作为 prompt 发给模型润色即可（代码底部有示例）。
 ------------------------------------ */
-function buildReading(question, picks){
+/* =========================================================
+   真正的 AI 解读核心（DeepSeek API）
+   ========================================================= */
+async function buildReadingWithAI(question, picks) {
+  // ⚠️ 在这里填入你的 DeepSeek API Key
+  const API_KEY = 'sk-你的DeepSeekKey填在这里'; 
+
+  // 拼接抽到的牌
+  const cardsText = picks.map((p, i) =>
+    `${POSITIONS[i]}：${p.card.name}${p.isReversed ? '（逆位）' : '（正位）'}`
+  ).join('\n');
+
+  // 核心 Prompt —— 直接解决你朋友吐槽的“不契合”、“高高在上”
+  const systemPrompt = `
+你是一位温柔、客观、富有洞察力的塔罗解读师。你的用户是年轻女性。
+你的任务是根据用户的具体问题和抽到的牌阵，给出具有实操性的情感/行动指引，而不是泛泛而谈的运气预测。
+
+【绝对禁止项（必须严格遵守）】：
+1. 禁止对用户的社会地位、经济条件、学历、阶层等进行主观评判（绝不要出现"普通中产""二本""天花板"等标签）。
+2. 禁止捏造用户的个人历史事实（只根据用户输入的问题和牌面进行分析）。
+3. 禁止使用绝对化、恐吓性的语言（如"你一定会失败""命中注定"）。
+4. 逆位牌不代表厄运，而是能量的阻塞或视角的转换。
+5. 禁止输出“适合晚婚”“中年事业好转”这种千篇一律的算命话术。
+
+【回答要求】：
+1. 首先，用1-2句话共情用户当前的困扰，要直接扣题。
+2. 其次，结合牌阵的三个位置（此刻的你、被忽略的感受、给自己的礼物），深入分析用户处境。**必须直接回应用户的具体提问**（比如“领导能不能放行”、“这段感情要不要继续”），给出非常具体的分析。
+3. 最后，给出一个具体的、今天就可以做的微小行动建议。
+4. 语言要像朋友聊天一样自然，不绕弯子，不爹味。
+5. 必须严格按以下 JSON 格式输出（不要包含任何 markdown 标记）：
+{
+  "title": "一句温柔有力的标题",
+  "opening": "共情开场白（1-2句）",
+  "parts": [
+    {"pos": "此刻的你", "keyword": "关键词", "text": "深度解读（结合用户问题）"},
+    {"pos": "被忽略的感受", "keyword": "关键词", "text": "深度解读（结合用户问题）"},
+    {"pos": "给自己的礼物", "keyword": "关键词", "text": "深度解读（结合用户问题）"}
+  ],
+  "oneliner": "一句话总评",
+  "action": "今天可以做的一件小事",
+  "lucky": {"color": "幸运色", "number": "幸运数字", "item": "幸运物"}
+}
+`;
+
+  const userPrompt = `
+    用户的真实困扰：${question}
+    抽到的牌面：
+    ${cardsText}
+  `;
+
+  const response = await fetch('https://api.deepseek.com/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${API_KEY}`
+    },
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      temperature: 0.8,
+      response_format: { type: 'json_object' } // 强制 JSON 输出
+    })
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`API请求失败: ${response.status} - ${err}`);
+  }
+
+  const data = await response.json();
+  let rawContent = data.choices[0].message.content;
+  
+  // 清理可能出现的 markdown 代码块标记
+  rawContent = rawContent.replace(/```json/g, '').replace(/```/g, '').trim();
+  
+  return JSON.parse(rawContent);
+}
+  
+  
+  function buildReading(question, picks){
   const seed = hashSeed(question + todayStr());
 
   // 开场共情句
@@ -689,14 +786,6 @@ document.getElementById('btn-restart').addEventListener('click', ()=>{
   state.picked = [];
   show('screen-intro');
 });
-
-/* =========================================================
-   【可选】接入大模型 API
-   ---------------------------------------------------------*/
-   如果你想用真正的 AI 来润色解读，把下面这段
-   替换掉 buildReading 的调用即可。
-
-   示例（以 OpenAI 兼容接口为例）：
 
    async function buildReadingWithAI(question, picks){
      const cardsText = picks.map((p,i)=>
